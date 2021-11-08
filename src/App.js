@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import Board from "./components/Board/Board";
 import Level from "./components/Level/Level";
 import styles from "./App.module.css";
@@ -34,33 +34,69 @@ const levels = [
     identifier: 8,
     name: "Очень сложный",
     active: false,
-  },
-  
+  }, 
 ];
 
+const initialState = {
+  items: [], 
+  rounds: 0, 
+  disabled: false, 
+  ready: false, 
+  completed: false,
+}
+
+function init(state) {
+  return {...state }
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'round': 
+      return {
+        ...state,
+        rounds: state.rounds + 1,
+        disabled: false
+      }
+
+    case 'items': return {...state, ready: true, completed: false, rounds: 0}
+
+    case 'update': return {...state}
+
+    case 'disabled': 
+      return {
+        ...state,
+        disabled: true
+      }
+    
+    case 'not-ready': 
+      return {...state, ready: false}
+
+    case 'completed': 
+      return {...state, completed: true}
+  
+    default:
+      return state;
+  }
+}
+
 const App = () => {
-  const [items, setItems] = useState([]);
-  const [rounds, setRounds] = useState(0);
+  const [data, dispatch] = useReducer(reducer, initialState, init)
   const [selectOne, setSelectOne] = useState(null);
   const [selectTwo, setSelectTwo] = useState(null);
-  const [disabled, setDisabled] = useState(false);
   const [level, setLevel] = useState(2);
-  const [ready, setReady] = useState(false);
-  const [completed, setCompleted] = useState(false);
 
   const shuffleTiles = () => {
     const tiles = tilesImage.slice(0, level);
 
     const shuffledTiles = [...tiles, ...tiles]
-      .sort(() => Math.random() - 0.5) //перемешиваем массив
-      .map((tile) => ({ ...tile, id: new Date().getTime() + (Math.random() * 10)})); //задаем уникальный id для каждого будущего item
+      .sort(() => Math.random() - 0.5)
+      .map((tile) => ({ ...tile, id: new Date().getTime() + (Math.random() * 10)}));
+    
+    data.items = shuffledTiles;
 
     setSelectOne(null);
     setSelectTwo(null);
-    setItems(shuffledTiles);
-    setRounds(0);
-    setReady(true);
-    setCompleted(false);
+    dispatch({ type: "items" })
   };
 
   const chooseLevel = (level) => {
@@ -80,29 +116,31 @@ const App = () => {
   const resetRound = () => {
     setSelectOne(null);
     setSelectTwo(null);
-    setTimeout(() => setRounds((prevRounds) => prevRounds + 1), 1000);
-    setDisabled(false);
+    setTimeout(() => dispatch({ type: "round" }), 1000);
   };
 
   const getNewGame = () => {
     shuffleTiles();
-    setReady(false);
+    dispatch({ type: "not-ready" })
   };
+
+//прописать функцию для проверки выбора
 
   useEffect(() => {
     if (selectOne && selectTwo) {
-      setDisabled(true);
+      dispatch({ type: "disabled" })
       if (selectOne.src === selectTwo.src) {
-        setItems((prevItems) => {
-          return prevItems.map((item) => {
-            if (item.src === selectOne.src) {
-              return { ...item, matched: true };
-            } else {
-              return item;
-            }
-          });
-        });
-
+        console.log(data.items)
+        data.items.map((item) => {
+          if (item.src === selectOne.src) {
+            console.log(item.src)
+            console.log(selectOne.src)
+            return item.matched = true;
+          } else {
+            return item;
+          }
+        })
+        setTimeout(() => checkMatched(), 1000);
         resetRound();
       } else {
         setTimeout(() => resetRound(), 1000);
@@ -112,24 +150,18 @@ const App = () => {
 
   const checkMatched = () => {
     let count = 0;
-    items.forEach((item) => {
+    data.items.forEach((item) => {
       if(item.matched === true) {
         count ++;
       }
     });
-    if(count === items.length && count !== 0) {
-      setCompleted(true);
-    } else {
-      setCompleted(false);
+    if(count === data.items.length && count !== 0) {
+      dispatch({ type: "completed" })
     }
+    dispatch({ type: "update" })
   };
 
-  useEffect(() => {
-      setTimeout(() => checkMatched(), 1000);
-  });
-
-
-  if (!ready) {
+  if (!data.ready) {
     return (
       <div className={styles.wrapper}>
         <div className={styles.decoration}></div>
@@ -156,15 +188,15 @@ const App = () => {
         <div className={styles.round}></div>
         <div className={styles.ellipse}></div>
           <Board
-            items={items}
+            items={data.items}
             handleSelect={handleSelect}
             getNewGame={getNewGame}
             selectOne={selectOne}
             selectTwo={selectTwo}
-            disabled={disabled}
+            disabled={data.disabled}
             onClick={shuffleTiles}
-            completed={completed}
-            rounds={rounds}
+            completed={data.completed}
+            rounds={data.rounds}
           />
       </div>
     );
