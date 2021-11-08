@@ -138,12 +138,12 @@ body {
     top: 4%;
     left: 4%;
   }
-  
+
   .decoration:nth-child(3) {
     bottom: 1%;
     right: 1%;
   }
-  
+
   .decoration:nth-child(4) {
     bottom: 4%;
     right: 4%;
@@ -153,7 +153,7 @@ body {
     top: 90%;
     left: -10%;
   }
-  
+
   .ellipse {
     top: 90%;
     left: -30%;
