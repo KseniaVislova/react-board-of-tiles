@@ -53,7 +53,7 @@ const App = () => {
 
     const shuffledTiles = [...tiles, ...tiles]
       .sort(() => Math.random() - 0.5) //перемешиваем массив
-      .map((tile) => ({ ...tile, id: new Date().getTime() + Math.random() })); //задаем уникальный id для каждого будущего item
+      .map((tile) => ({ ...tile, id: new Date().getTime() + (Math.random() * 10)})); //задаем уникальный id для каждого будущего item
 
     setSelectOne(null);
     setSelectTwo(null);
