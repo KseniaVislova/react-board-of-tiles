@@ -1,0 +1,129 @@
+.item {
+  position: relative;
+  width: 23%;
+  min-height: 200px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color:  #3e3efd;
+  background-size: 40px 40px;
+  border: 2px solid #0202ee;
+  transform: rotateY(0deg);
+  transition: all 0.5s;
+  transition-delay: 0.5s;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.decoration {
+  position: absolute;
+  content: '';
+  width: 50px;
+  height: 50px;
+  background-image: url('./decoration.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: transform 0.5s;
+}
+
+.decoration:nth-child(1) {
+  top: 35%;
+  left: 45%;
+  transform: rotate(-25deg);
+}
+
+.decoration:nth-child(2) {
+  top: 15%;
+  left: 10%;
+  transform: rotate(25deg);
+}
+
+.decoration:nth-child(3) {
+  top: 5%;
+  left: 57%;
+  transform: rotate(-155deg);
+}
+
+.decoration:nth-child(4) {
+  top: 75%;
+  left: 10%;
+  transform: rotate(200deg);
+}
+
+.decoration:nth-child(5) {
+  top: 70%;
+  left: 60%;
+  transform: rotate(60deg);
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 20px);
+  height: calc(100% - 100px);
+  padding: 50px 10px;
+  background-color: #efdb00;
+  border: 2px solid #0202ee;
+  transform: rotateY(90deg);
+  transition: all 0.5s;
+  border-radius: 10px;
+}
+
+.back img {
+  max-width: calc(100% - 20px);
+  height: auto
+}
+
+.flipped_front {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+
+.flipped_back {
+  transform: rotateY(0deg);
+  transition-delay: 0.5s;
+}
+
+@media (max-width: 767px) {
+  .item {
+    height: 150px;
+  }
+
+  .decoration {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 550px) {
+  .item {
+    width: 45%;
+  }
+
+  .decoration {
+    width: 40px;
+    height: 40px;
+  }
+
+  .back img {
+    width: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 375px) {
+  .back img {
+    width: calc(100% - 20px);
+  }
+}

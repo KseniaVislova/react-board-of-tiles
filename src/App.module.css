@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Mulish', sans-serif;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  padding: 50px 0;
+  color: #0202EE;
+  background: #EEEF3F;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.title {
+  position: relative;
+  margin: 0 0 25px 0;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.title::after {
+  position: absolute;
+  content: '';
+  width: 120%;
+  height: 100px;
+  top: 0px;
+  left: -10%;
+  background-image: url('./color-line.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.decoration {
+  position: absolute;
+  content: '';
+  width: 100px;
+  height: 100px;
+  background-image: url('./decoration.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: transform 0.5s;
+  z-index: 1;
+}
+
+.decoration:nth-child(1) {
+  top: 5%;
+  left: 5%;
+  transform: rotate(-45deg);
+}
+
+.decoration:nth-child(2) {
+  top: 8%;
+  left: 8%;
+  transform: rotate(-45deg);
+}
+
+.decoration:nth-child(3) {
+  bottom: 5%;
+  right: 5%;
+  transform: rotate(135deg);
+}
+
+.decoration:nth-child(4) {
+  bottom: 8%;
+  right: 8%;
+  transform: rotate(135deg);
+}
+
+.decoration:nth-child(1):hover, .decoration:nth-child(2):hover {
+  transform: rotate(-60deg);
+  transition: transform 0.5s;
+}
+
+.decoration:nth-child(3):hover, .decoration:nth-child(4):hover {
+  transform: rotate(150deg);
+  transition: transform 0.5s;
+}
+
+.round {
+  position: absolute;
+  content: '';
+  width: 400px;
+  height: 400px;
+  top: 70%;
+  left: -10%;
+  background-image: url('./round-line.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.ellipse {
+  position: absolute;
+  content: '';
+  width: 500px;
+  height: 450px;
+  top: 70%;
+  left: -11%;
+  background-image: url('./ellipse.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.round:hover, .ellipse:hover {
+  transform: scale(1.10);  
+  transition: transform 0.5s;
+}
+
+@media (max-width: 767px)  {
+  .title::after {
+    width: 106%;
+    left: -3%;
+  }
+
+  .decoration:nth-child(1) {
+    top: 1%;
+    left: 1%;
+  }
+  
+  .decoration:nth-child(2) {
+    top: 4%;
+    left: 4%;
+  }
+  
+  .decoration:nth-child(3) {
+    bottom: 1%;
+    right: 1%;
+  }
+  
+  .decoration:nth-child(4) {
+    bottom: 4%;
+    right: 4%;
+  }  
+
+  .round {
+    top: 90%;
+    left: -10%;
+  }
+  
+  .ellipse {
+    top: 90%;
+    left: -30%;
+  }
+}
+
+@media (max-width: 767px) {
+  .decoration, .ellipse, .round {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  body {
+    font-size: 10px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.title {
+  margin-bottom: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.item {
+  padding: 10px 30px;
+  font-size: 1.3rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.item:hover {
+  font-weight: 700;
+}
+
+.active {
+  position: relative;
+  font-weight: 700;
+  border: 2px solid #0202EE;
+  background-color: #EEEE02;
+  border-radius: 50%;
+  transition: background-color 1.5s;
+}
+
+.button {
+  margin: 0 auto;
+}
