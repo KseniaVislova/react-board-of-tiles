@@ -42,17 +42,18 @@
   margin: 0 0 50px 0;
   font-size: 1.3rem;
   text-align: center;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 
-.text span, .text__win span {
+.text span,
+.text__win span {
   display: inline-block;
   min-width: 30px;
   padding: 5px;
   font-size: 1.5rem;
   font-weight: 700;
-  background-color: #EEEE02;
-  border: 2px solid #0202EE;
+  background-color: #eeee02;
+  border: 2px solid #0202ee;
   border-radius: 50%;
 }
 
@@ -84,7 +85,7 @@
     margin-bottom: 10px;
   }
 
-  .text{
+  .text {
     margin-bottom: 15px;
   }
 

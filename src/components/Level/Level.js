@@ -1,6 +1,6 @@
-import Button from '../Button/Button';
-import classnames from 'classnames';
-import styles from './Level.module.css';
+import Button from "../Button/Button";
+import classnames from "classnames";
+import styles from "./Level.module.css";
 
 function Level({levels, chooseLevel, onClick}) {
 
@@ -8,7 +8,7 @@ function Level({levels, chooseLevel, onClick}) {
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Выбрать уровень:</h3>
         <ul className={styles.list}>
-          {levels.map(level => (
+          {levels.map((level) => (
             <li 
             key={level.identifier}
             onClick={() => chooseLevel(level.identifier)}>
@@ -22,7 +22,7 @@ function Level({levels, chooseLevel, onClick}) {
             </li>
           ))}
         </ul>
-        <Button className={styles.button} onClick={onClick} inner={'Начать игру'}/>
+        <Button className={styles.button} onClick={onClick} inner={"Начать игру"}/>
     </div>
   );
 }

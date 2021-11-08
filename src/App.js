@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Board from './components/Board/Board';
+import Board from "./components/Board/Board";
 import Level from "./components/Level/Level";
-import styles from './App.module.css';
+import styles from "./App.module.css";
 
 const tilesImage = [
   { src: "/img/cat-1.png", matched: false },
@@ -17,22 +17,22 @@ const tilesImage = [
 const levels = [
   {
     identifier: 2,
-    name: 'Простой',
+    name: "Простой",
     active: true,
   },
   {
     identifier: 4,
-    name: 'Средний',
+    name: "Средний",
     active: false,
   },
   {
     identifier: 6,
-    name: 'Сложный',
+    name: "Сложный",
     active: false,
   },
   {
     identifier: 8,
-    name: 'Очень сложный',
+    name: "Очень сложный",
     active: false,
   },
   
@@ -49,10 +49,7 @@ const App = () => {
   const [completed, setCompleted] = useState(false);
 
   const shuffleTiles = () => {
-    const tiles = [];
-    for(let i = 0; i < level; i++) {
-      tiles.push(tilesImage[i]);
-    }
+    const tiles = tilesImage.slice(0, level);
 
     const shuffledTiles = [...tiles, ...tiles]
       .sort(() => Math.random() - 0.5) //перемешиваем массив
@@ -63,7 +60,7 @@ const App = () => {
     setItems(shuffledTiles);
     setRounds(0);
     setReady(true);
-    setCompleted(false)
+    setCompleted(false);
   };
 
   const chooseLevel = (level) => {
@@ -71,7 +68,7 @@ const App = () => {
       if(level === l.identifier) {
         return l.active = true;
       } else {
-        return l.active = false
+        return l.active = false;
       }});
     setLevel(level);
   };
@@ -80,12 +77,17 @@ const App = () => {
     selectOne ? setSelectTwo(item) : setSelectOne(item);
   };
 
-  
+  const resetRound = () => {
+    setSelectOne(null);
+    setSelectTwo(null);
+    setTimeout(() => setRounds((prevRounds) => prevRounds + 1), 1000);
+    setDisabled(false);
+  };
 
   const getNewGame = () => {
     shuffleTiles();
     setReady(false);
-  }
+  };
 
   useEffect(() => {
     if (selectOne && selectTwo) {
@@ -108,20 +110,13 @@ const App = () => {
     }
   }, [selectOne, selectTwo]);
 
-  const resetRound = () => {
-    setSelectOne(null);
-    setSelectTwo(null);
-    setTimeout(() => setRounds((prevRounds) => prevRounds + 1), 1000)
-    setDisabled(false);
-  };
-
   const checkMatched = () => {
     let count = 0;
     items.forEach((item) => {
       if(item.matched === true) {
         count ++;
       }
-    })
+    });
     if(count === items.length && count !== 0) {
       setCompleted(true);
     } else {
@@ -150,7 +145,7 @@ const App = () => {
           onClick={shuffleTiles}
           />
       </div>
-    )
+    );
   } else {
     return (
       <div className={styles.wrapper}>

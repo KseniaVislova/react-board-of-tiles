@@ -83,7 +83,7 @@
 
 .back img {
   max-width: calc(100% - 20px);
-  height: auto
+  height: auto;
 }
 
 .flipped_front {

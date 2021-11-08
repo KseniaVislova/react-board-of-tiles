@@ -11,8 +11,8 @@ body {
   width: 100%;
   min-height: calc(100vh - 100px);
   padding: 50px 0;
-  color: #0202EE;
-  background: #EEEF3F;
+  color: #0202ee;
+  background: #eeef3f;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,7 +34,7 @@ body {
   content: '';
   width: 120%;
   height: 100px;
-  top: 0px;
+  top: 0;
   left: -10%;
   background-image: url('./color-line.svg');
   background-repeat: no-repeat;
@@ -79,12 +79,14 @@ body {
   transform: rotate(135deg);
 }
 
-.decoration:nth-child(1):hover, .decoration:nth-child(2):hover {
+.decoration:nth-child(1):hover,
+.decoration:nth-child(2):hover {
   transform: rotate(-60deg);
   transition: transform 0.5s;
 }
 
-.decoration:nth-child(3):hover, .decoration:nth-child(4):hover {
+.decoration:nth-child(3):hover,
+.decoration:nth-child(4):hover {
   transform: rotate(150deg);
   transition: transform 0.5s;
 }
@@ -115,12 +117,13 @@ body {
   background-position: center;
 }
 
-.round:hover, .ellipse:hover {
-  transform: scale(1.10);  
+.round:hover, 
+.ellipse:hover {
+  transform: scale(1.1);
   transition: transform 0.5s;
 }
 
-@media (max-width: 767px)  {
+@media (max-width: 767px) {
   .title::after {
     width: 106%;
     left: -3%;
@@ -144,7 +147,7 @@ body {
   .decoration:nth-child(4) {
     bottom: 4%;
     right: 4%;
-  }  
+  }
 
   .round {
     top: 90%;
@@ -158,7 +161,9 @@ body {
 }
 
 @media (max-width: 767px) {
-  .decoration, .ellipse, .round {
+  .decoration,
+  .ellipse,
+  .round {
     display: none;
   }
 }
