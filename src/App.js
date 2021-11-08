@@ -122,11 +122,11 @@ const App = () => {
     } else {
       setCompleted(false);
     }
-  }
+  };
 
   useEffect(() => {
       setTimeout(() => checkMatched(), 1000);
-  })
+  });
 
 
   if (!ready) {
@@ -167,7 +167,7 @@ const App = () => {
             rounds={rounds}
           />
       </div>
-    )
+    );
   }
 }
 

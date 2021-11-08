@@ -33,7 +33,7 @@
 .active {
   position: relative;
   font-weight: 700;
-  border: 2px solid #0202EE;
+  border: 2px solid #0202ee;
   background-color: #eeee02;
   border-radius: 50%;
   transition: background-color 1.5s;

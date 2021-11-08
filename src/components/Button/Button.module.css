@@ -3,17 +3,17 @@
   padding: 10px 20px;
   font-size: 1.7rem;
   font-weight: 700;
-  color: #0202EE;
+  color: #0202ee;
   text-transform: uppercase;
-  background-color: #EEEE02;
-  border: 3px solid #0202EE;
+  background-color: #eeee02;
+  border: 3px solid #0202ee;
   cursor: pointer;
   transition: all 0.5s ease-in;
 }
 
 .button:hover {
   color: #efdb00;
-  background-color: #0202EE;
+  background-color: #0202ee;
   transition: all 0.5s ease-in;
 }
 
