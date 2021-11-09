@@ -10,21 +10,14 @@ function Tiles({item, handleSelect, flipped, disabled}) {
 
   return (
     <li className={styles.item}>
-      <span 
-      className={classnames(
-        [styles.front],
-        {[styles.flipped_front]: flipped})}
-        onClick={handleClick}
-        >
+      <span className={classnames([styles.front],{[styles.flipped_front]: flipped})}onClick={handleClick}>
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>
         </span>
-      <span className={classnames(
-        [styles.back],
-        {[styles.flipped_back]: flipped})}>
+      <span className={classnames([styles.back],{[styles.flipped_back]: flipped})}>
         <img src={item.src} alt="item" />
       </span>
     </li>
