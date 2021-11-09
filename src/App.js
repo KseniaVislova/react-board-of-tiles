@@ -47,10 +47,10 @@ const initialState = {
       active: false,
     }
   ]
-}
+};
 
 function init(state) {
-  return {...state }
+  return {...state };
 }
 
 function reducer(state, action) {
@@ -60,17 +60,17 @@ function reducer(state, action) {
         ...state,
         rounds: state.rounds + 1,
         disabled: false
-      }
+      };
 
-    case "items": return {...state, ready: true, completed: false, rounds: 0}
+    case "items": return {...state, ready: true, completed: false, rounds: 0};
 
-    case "update": return {...state}
+    case "update": return {...state};
 
     case "disabled": 
       return {
         ...state,
         disabled: true
-      }
+      };
     
     case "not-ready": 
       return {...state, ready: false};
@@ -96,7 +96,7 @@ function reducer(state, action) {
 }
 
 const App = () => {
-  const [data, dispatch] = useReducer(reducer, initialState, init)
+  const [data, dispatch] = useReducer(reducer, initialState, init);
   const [selectOne, setSelectOne] = useState(null);
   const [selectTwo, setSelectTwo] = useState(null);
 
@@ -111,11 +111,11 @@ const App = () => {
 
     setSelectOne(null);
     setSelectTwo(null);
-    dispatch({ type: "items" })
+    dispatch({ type: "items" });
   };
 
   const chooseLevel = (level) => {
-    dispatch({ type: 'level', payload: level })
+    dispatch({ type: 'level', payload: level });
   };
 
   const handleSelect = (item) => {
@@ -130,7 +130,7 @@ const App = () => {
 
   const getNewGame = () => {
     shuffleTiles();
-    dispatch({ type: "not-ready" })
+    dispatch({ type: "not-ready" });
   };
 
   const checkMatched = () => {
@@ -141,20 +141,17 @@ const App = () => {
       }
     });
     if(count === data.items.length && count !== 0) {
-      dispatch({ type: "completed" })
+      dispatch({ type: "completed" });
     }
-    dispatch({ type: "update" })
+    dispatch({ type: "update" });
   };
 
   useEffect(() => {
     if (selectOne && selectTwo) {
       dispatch({ type: "disabled" })
       if (selectOne.src === selectTwo.src) {
-        console.log(data.items)
         data.items.map((item) => {
           if (item.src === selectOne.src) {
-            console.log(item.src)
-            console.log(selectOne.src)
             return item.matched = true;
           } else {
             return item;
@@ -168,46 +165,37 @@ const App = () => {
     }
   }, [selectOne, selectTwo]);
 
-  if (!data.ready) {
-    return (
-      <div className={styles.wrapper}>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.round}></div>
-        <div className={styles.ellipse}></div>
-          <h1 className={styles.title}>Найди пару</h1>
-          <Level 
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.decoration}></div>
+      <div className={styles.decoration}></div>
+      <div className={styles.decoration}></div>
+      <div className={styles.decoration}></div>
+      <div className={styles.round}></div>
+      <div className={styles.ellipse}></div>
+      {!data.ready ? 
+      (<div>
+        <h1 className={styles.title}>Найди пару</h1>
+        <Level 
           levels={data.levels} 
           chooseLevel={chooseLevel}
           onClick={shuffleTiles}
-          />
-      </div>
-    );
-  } else {
-    return (
-      <div className={styles.wrapper}>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.decoration}></div>
-        <div className={styles.round}></div>
-        <div className={styles.ellipse}></div>
-          <Board
-            items={data.items}
-            handleSelect={handleSelect}
-            getNewGame={getNewGame}
-            selectOne={selectOne}
-            selectTwo={selectTwo}
-            disabled={data.disabled}
-            onClick={shuffleTiles}
-            completed={data.completed}
-            rounds={data.rounds}
-          />
-      </div>
-    );
-  }
+        />
+      </div>) : 
+      (<Board
+        items={data.items}
+        handleSelect={handleSelect}
+        getNewGame={getNewGame}
+        selectOne={selectOne}
+        selectTwo={selectTwo}
+        disabled={data.disabled}
+        onClick={shuffleTiles}
+        completed={data.completed}
+        rounds={data.rounds}
+      />)
+      } 
+    </div>
+  )
 };
 
 export default App;
