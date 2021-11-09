@@ -1,5 +1,5 @@
-import classnames from "classnames";
-import styles from "./Tiles.module.css";
+import classnames from 'classnames';
+import styles from './Tiles.module.css';
 
 function Tiles({item, handleSelect, flipped, disabled}) {
   const handleClick = () => {

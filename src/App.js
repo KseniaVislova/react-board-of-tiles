@@ -125,7 +125,6 @@ function reducer(state, action) {
 
 const App = () => {
   const [data, dispatch] = useReducer(reducer, initialState, init)
-  //const [level, setLevel] = useState(2);
   const [selectOne, setSelectOne] = useState(null);
   const [selectTwo, setSelectTwo] = useState(null);
 
@@ -162,7 +161,18 @@ const App = () => {
     dispatch({ type: "not-ready" })
   };
 
-//прописать функцию для проверки выбора
+  const checkMatched = () => {
+    let count = 0;
+    data.items.forEach((item) => {
+      if(item.matched === true) {
+        count ++;
+      }
+    });
+    if(count === data.items.length && count !== 0) {
+      dispatch({ type: "completed" })
+    }
+    dispatch({ type: "update" })
+  };
 
   useEffect(() => {
     if (selectOne && selectTwo) {
@@ -185,19 +195,6 @@ const App = () => {
       }
     }
   }, [selectOne, selectTwo]);
-
-  const checkMatched = () => {
-    let count = 0;
-    data.items.forEach((item) => {
-      if(item.matched === true) {
-        count ++;
-      }
-    });
-    if(count === data.items.length && count !== 0) {
-      dispatch({ type: "completed" })
-    }
-    dispatch({ type: "update" })
-  };
 
   if (!data.ready) {
     return (
