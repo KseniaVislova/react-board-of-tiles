@@ -64,8 +64,6 @@ function reducer(state, action) {
 
     case "items": return {...state, ready: true, completed: false, rounds: 0};
 
-    case "update": return {...state};
-
     case "disabled": 
       return {
         ...state,
@@ -80,18 +78,15 @@ function reducer(state, action) {
 
     case "level": 
       let l;
-      state.levels.map((level) => {
+      state.levels.forEach((level) => {
         if (action.payload === level.identifier) {
           level.active = true;
-          l = level.identifier
+          l = level.identifier;
         } else {
-          level.active = false
+          level.active = false;
         }
       });
       return {...state, level: l};
-  
-    default:
-      return state;
   }
 }
 
@@ -115,22 +110,11 @@ const App = () => {
   };
 
   const chooseLevel = (level) => {
-    dispatch({ type: 'level', payload: level });
+    dispatch({ type: "level", payload: level });
   };
 
   const handleSelect = (item) => {
     selectOne ? setSelectTwo(item) : setSelectOne(item);
-  };
-
-  const resetRound = () => {
-    setSelectOne(null);
-    setSelectTwo(null);
-    setTimeout(() => dispatch({ type: "round" }), 1000);
-  };
-
-  const getNewGame = () => {
-    shuffleTiles();
-    dispatch({ type: "not-ready" });
   };
 
   const checkMatched = () => {
@@ -143,12 +127,23 @@ const App = () => {
     if(count === data.items.length && count !== 0) {
       dispatch({ type: "completed" });
     }
-    dispatch({ type: "update" });
+  };
+
+  const resetRound = () => {
+    setTimeout(() => checkMatched(), 1000);
+    setSelectOne(null);
+    setSelectTwo(null);
+    setTimeout(() => dispatch({ type: "round" }), 1000);
+  };
+
+  const getNewGame = () => {
+    shuffleTiles();
+    dispatch({ type: "not-ready" });
   };
 
   useEffect(() => {
     if (selectOne && selectTwo) {
-      dispatch({ type: "disabled" })
+      dispatch({ type: "disabled" });
       if (selectOne.src === selectTwo.src) {
         data.items.map((item) => {
           if (item.src === selectOne.src) {
@@ -156,8 +151,7 @@ const App = () => {
           } else {
             return item;
           }
-        })
-        setTimeout(() => checkMatched(), 1000);
+        });
         resetRound();
       } else {
         setTimeout(() => resetRound(), 1000);
@@ -195,7 +189,7 @@ const App = () => {
       />)
       } 
     </div>
-  )
+  );
 };
 
 export default App;
