@@ -23,25 +23,25 @@ const initialState = {
   level: 2,
   levels: [
     {
-      case: 'easy',
+      case: "easy",
       identifier: 2,
       name: "Простой",
       active: true,
     },
     {
-      case: 'middle',
+      case: "middle",
       identifier: 4,
       name: "Средний",
       active: false,
     },
     {
-      case: 'hard',
+      case: "hard",
       identifier: 6,
       name: "Сложный",
       active: false,
     },
     {
-      case: 'very-hard',
+      case: "very-hard",
       identifier: 8,
       name: "Очень сложный",
       active: false,
@@ -55,68 +55,40 @@ function init(state) {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'round': 
+    case "round": 
       return {
         ...state,
         rounds: state.rounds + 1,
         disabled: false
       }
 
-    case 'items': return {...state, ready: true, completed: false, rounds: 0}
+    case "items": return {...state, ready: true, completed: false, rounds: 0}
 
-    case 'update': return {...state}
+    case "update": return {...state}
 
-    case 'disabled': 
+    case "disabled": 
       return {
         ...state,
         disabled: true
       }
     
-    case 'not-ready': 
-      return {...state, ready: false}
+    case "not-ready": 
+      return {...state, ready: false};
 
-    case 'completed': 
-      return {...state, completed: true}
+    case "completed": 
+      return {...state, completed: true};
 
-    case 'easy': 
+    case "level": 
+      let l;
       state.levels.map((level) => {
-        if (action.type === level.case) {
+        if (action.payload === level.identifier) {
           level.active = true;
+          l = level.identifier
         } else {
           level.active = false
         }
-      })
-      return {...state, level: 2}
-
-    case 'middle': 
-      state.levels.map((level) => {
-        if (action.type === level.case) {
-          level.active = true;
-        } else {
-          level.active = false
-        }
-      })
-      return {...state,  level: 4}
-
-    case 'hard': 
-      state.levels.map((level) => {
-        if (action.type === level.case) {
-          level.active = true;
-        } else {
-          level.active = false
-        }
-      })
-      return {...state,  level: 6}
-    
-    case 'very-hard': 
-      state.levels.map((level) => {
-        if (action.type === level.case) {
-          level.active = true;
-        } else {
-          level.active = false
-        }
-      })
-      return {...state,  level: 8}
+      });
+      return {...state, level: l};
   
     default:
       return state;
@@ -143,7 +115,7 @@ const App = () => {
   };
 
   const chooseLevel = (level) => {
-    dispatch({ type: level })
+    dispatch({ type: 'level', payload: level })
   };
 
   const handleSelect = (item) => {
