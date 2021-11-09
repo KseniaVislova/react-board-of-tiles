@@ -157,11 +157,6 @@ const App = () => {
     dispatch({ type: "not-ready" });
   };
 
-  const getNewGame = () => {
-    shuffleTiles();
-    dispatch({ type: "not-ready" });
-  };
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.decoration}></div>
