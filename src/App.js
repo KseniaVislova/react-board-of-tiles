@@ -49,10 +49,6 @@ const initialState = {
   ]
 };
 
-function init(state) {
-  return {...state };
-}
-
 function reducer(state, action) {
   switch (action.type) {
     case "round": 
@@ -87,11 +83,14 @@ function reducer(state, action) {
         }
       });
       return {...state, level: l};
+
+    default:
+      return state;
   }
 }
 
 const App = () => {
-  const [data, dispatch] = useReducer(reducer, initialState, init);
+  const [data, dispatch] = useReducer(reducer, initialState);
   const [selectOne, setSelectOne] = useState(null);
   const [selectTwo, setSelectTwo] = useState(null);
 
