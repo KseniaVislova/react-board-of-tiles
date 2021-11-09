@@ -11,7 +11,7 @@ function Level({levels, chooseLevel, onClick}) {
           {levels.map((level) => (
             <li 
             key={level.identifier}
-            onClick={() => chooseLevel(level.identifier)}>
+            onClick={() => chooseLevel(level.case)}>
                 <div 
                   className={classnames(
                     [styles.item],

@@ -14,35 +14,39 @@ const tilesImage = [
   { src: "/img/cat-8.png", matched: false },
 ];
 
-const levels = [
-  {
-    identifier: 2,
-    name: "Простой",
-    active: true,
-  },
-  {
-    identifier: 4,
-    name: "Средний",
-    active: false,
-  },
-  {
-    identifier: 6,
-    name: "Сложный",
-    active: false,
-  },
-  {
-    identifier: 8,
-    name: "Очень сложный",
-    active: false,
-  }, 
-];
-
 const initialState = {
   items: [], 
   rounds: 0, 
   disabled: false, 
   ready: false, 
   completed: false,
+  level: 2,
+  levels: [
+    {
+      case: 'easy',
+      identifier: 2,
+      name: "Простой",
+      active: true,
+    },
+    {
+      case: 'middle',
+      identifier: 4,
+      name: "Средний",
+      active: false,
+    },
+    {
+      case: 'hard',
+      identifier: 6,
+      name: "Сложный",
+      active: false,
+    },
+    {
+      case: 'very-hard',
+      identifier: 8,
+      name: "Очень сложный",
+      active: false,
+    }
+  ]
 }
 
 function init(state) {
@@ -73,6 +77,46 @@ function reducer(state, action) {
 
     case 'completed': 
       return {...state, completed: true}
+
+    case 'easy': 
+      state.levels.map((level) => {
+        if (action.type === level.case) {
+          level.active = true;
+        } else {
+          level.active = false
+        }
+      })
+      return {...state, level: 2}
+
+    case 'middle': 
+      state.levels.map((level) => {
+        if (action.type === level.case) {
+          level.active = true;
+        } else {
+          level.active = false
+        }
+      })
+      return {...state,  level: 4}
+
+    case 'hard': 
+      state.levels.map((level) => {
+        if (action.type === level.case) {
+          level.active = true;
+        } else {
+          level.active = false
+        }
+      })
+      return {...state,  level: 6}
+    
+    case 'very-hard': 
+      state.levels.map((level) => {
+        if (action.type === level.case) {
+          level.active = true;
+        } else {
+          level.active = false
+        }
+      })
+      return {...state,  level: 8}
   
     default:
       return state;
@@ -81,12 +125,12 @@ function reducer(state, action) {
 
 const App = () => {
   const [data, dispatch] = useReducer(reducer, initialState, init)
+  //const [level, setLevel] = useState(2);
   const [selectOne, setSelectOne] = useState(null);
   const [selectTwo, setSelectTwo] = useState(null);
-  const [level, setLevel] = useState(2);
 
   const shuffleTiles = () => {
-    const tiles = tilesImage.slice(0, level);
+    const tiles = tilesImage.slice(0, data.level);
 
     const shuffledTiles = [...tiles, ...tiles]
       .sort(() => Math.random() - 0.5)
@@ -100,13 +144,7 @@ const App = () => {
   };
 
   const chooseLevel = (level) => {
-    levels.map((l) => {
-      if(level === l.identifier) {
-        return l.active = true;
-      } else {
-        return l.active = false;
-      }});
-    setLevel(level);
+    dispatch({ type: level })
   };
 
   const handleSelect = (item) => {
@@ -172,7 +210,7 @@ const App = () => {
         <div className={styles.ellipse}></div>
           <h1 className={styles.title}>Найди пару</h1>
           <Level 
-          levels={levels} 
+          levels={data.levels} 
           chooseLevel={chooseLevel}
           onClick={shuffleTiles}
           />
