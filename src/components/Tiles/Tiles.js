@@ -14,7 +14,8 @@ function Tiles({item, handleSelect, flipped, disabled}) {
       className={classnames(
         [styles.front],
         {[styles.flipped_front]: flipped})}
-        onClick={handleClick}>
+        onClick={handleClick}
+        >
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>
           <span className={styles.decoration}></span>

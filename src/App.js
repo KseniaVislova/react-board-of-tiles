@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import Board from "./components/Board/Board";
 import Level from "./components/Level/Level";
 import styles from "./App.module.css";
@@ -78,7 +78,16 @@ function reducer(state, action) {
       return {...state, ready: false};
 
     case "completed": 
-      return {...state, completed: true};
+      let count = 0;
+      state.items.forEach((item) => {
+        if(item.matched === true) {
+          count ++;
+        }
+      })
+      if(count === state.items.length && count !== 0) {
+        return {...state, completed: true};
+      } 
+      return {...state}
 
     case "level": 
       let l;
@@ -124,47 +133,29 @@ const App = () => {
     selectOne ? setSelectTwo(item) : setSelectOne(item);
   };
 
-  const checkMatched = () => {
-    let count = 0;
-    data.items.forEach((item) => {
-      if(item.matched === true) {
-        count ++;
-      }
-    });
-    if(count === data.items.length && count !== 0) {
-      dispatch({ type: "completed" });
-    }
-  };
-
-  const resetRound = () => {
-    setTimeout(() => checkMatched(), 1000);
-    setSelectOne(null);
-    setSelectTwo(null);
-    setTimeout(() => dispatch({ type: "round" }), 1000);
-  };
-
-  const getNewGame = () => {
-    shuffleTiles();
-    dispatch({ type: "not-ready" });
-  };
-
   useEffect(() => {
+    const resetRound = () => {
+      setTimeout(() => dispatch({ type: "completed" }), 1000);
+      setSelectOne(null);
+      setSelectTwo(null);
+      setTimeout(() => dispatch({ type: "round" }), 1000);
+    };
+
     if (selectOne && selectTwo) {
       dispatch({ type: "disabled" });
       if (selectOne.src === selectTwo.src) {
-        data.items.map((item) => {
-          if (item.src === selectOne.src) {
-            return item.matched = true;
-          } else {
-            return item;
-          }
-        });
+        dispatch({type: "check-status", payload: selectOne.src});
         resetRound();
       } else {
         setTimeout(() => resetRound(), 1000);
       }
     }
-  }, [selectOne, selectTwo]);
+  }, [selectOne, selectTwo])
+
+  const getNewGame = () => {
+    shuffleTiles();
+    dispatch({ type: "not-ready" });
+  };
 
   const getNewGame = () => {
     shuffleTiles();
