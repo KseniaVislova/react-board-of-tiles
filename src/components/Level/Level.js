@@ -12,18 +12,12 @@ function Level({levels, chooseLevel, onClick}) {
             <li 
             key={level.identifier}
             onClick={() => chooseLevel(level.identifier)}>
-                <div 
-                  className={classnames(
-                    [styles.item],
-                    {[styles.active]: level.active})}
-                >
-                  {level.name}
-                </div>
+              <div className={classnames([styles.item], {[styles.active]: level.active})}> {level.name}</div>
             </li>
           ))}
         </ul>
         <Button className={styles.button} onClick={onClick} inner={"Начать игру"}/>
-    </div>
+    </div>  
   );
 }
 
