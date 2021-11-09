@@ -65,6 +65,14 @@ function reducer(state, action) {
         ...state,
         disabled: true
       };
+
+    case "check-status": 
+      state.items.forEach((item) => {
+        if (item.src === action.payload) {
+          item.matched = true;
+        }
+      });
+      return {...state};
     
     case "not-ready": 
       return {...state, ready: false};
@@ -157,6 +165,11 @@ const App = () => {
       }
     }
   }, [selectOne, selectTwo]);
+
+  const getNewGame = () => {
+    shuffleTiles();
+    dispatch({ type: "not-ready" });
+  };
 
   return (
     <div className={styles.wrapper}>
