@@ -20,13 +20,13 @@ const initialState = {
   disabled: false, 
   ready: false, 
   completed: false,
-  level: 2,
+  level: 8,
   levels: [
     {
       case: "easy",
       identifier: 2,
       name: "Простой",
-      active: true,
+      active: false,
     },
     {
       case: "middle",
@@ -44,7 +44,7 @@ const initialState = {
       case: "very-hard",
       identifier: 8,
       name: "Очень сложный",
-      active: false,
+      active: true,
     }
   ]
 };
