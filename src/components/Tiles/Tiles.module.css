@@ -109,6 +109,12 @@
     width: 30px;
     height: 30px;
   }
+}
+
+@media (max-width: 550px) {
+  .item {
+    width: 45%;
+  }
 
   .item:nth-child(4n) {
     margin-right: 10px;
@@ -116,12 +122,6 @@
 
   .item:nth-child(2n) {
     margin-right: 0;
-  }
-}
-
-@media (max-width: 550px) {
-  .item {
-    width: 45%;
   }
 
   .decoration {
